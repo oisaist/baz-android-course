@@ -3,11 +3,7 @@ package com.wizelinebootcamp.bitcoinapp.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.*
 import com.wizelinebootcamp.bitcoinapp.data.models.BitsoApiResponse
-import com.wizelinebootcamp.bitcoinapp.data.models.OrderBookModel
-import com.wizelinebootcamp.bitcoinapp.data.models.TickerModel
 import com.wizelinebootcamp.bitcoinapp.domain.GetAvailableBooksUseCase
-import com.wizelinebootcamp.bitcoinapp.domain.GetOrderBookUseCase
-import com.wizelinebootcamp.bitcoinapp.domain.GetTickerUseCase
 import com.wizelinebootcamp.bitcoinapp.utils.NetworkResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +33,8 @@ class CoinsListViewModel @Inject constructor(
                 Log.d("CryptoApp", "Success: ${_availableBooks.value}")
             }
     }
+
+    fun getCoinIcon(coinName: String): String = "https://cryptoflash-icons-api.herokuapp.com/128/${coinName}"
 
     init {
         getAvailableBooks()

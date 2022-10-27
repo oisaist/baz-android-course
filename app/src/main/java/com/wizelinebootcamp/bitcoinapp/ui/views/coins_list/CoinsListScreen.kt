@@ -39,7 +39,8 @@ fun CoinsListScreen(
                     } else {
                         CoinsList(
                             navController = navController,
-                            coinsList = networkResponse.data?.payload ?: listOf()
+                            coinsList = networkResponse.data?.payload ?: listOf(),
+                            coinListViewModel = coinListViewModel
                         )
                     }
                 }

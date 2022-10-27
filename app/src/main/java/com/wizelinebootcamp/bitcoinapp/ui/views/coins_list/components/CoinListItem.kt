@@ -24,19 +24,21 @@ import com.wizelinebootcamp.bitcoinapp.R
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
 import com.wizelinebootcamp.bitcoinapp.ui.theme.CustomGreen
 import com.wizelinebootcamp.bitcoinapp.ui.theme.CustomRed
+import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
 import com.wizelinebootcamp.bitcoinapp.utils.ext_functions.formatAsCurrency
 
 @Composable
 fun CoinListItem(
     coin: PayloadModel,
+    coinListViewModel: CoinsListViewModel,
     onItemClick: (PayloadModel) -> Unit
 ) {
     val coinName = coin.book?.split("_")
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp),
-        elevation = 4.dp,
+            .padding(6.dp),
+        elevation = 6.dp,
         shape = RoundedCornerShape(8.dp)
     ) {
         Row(modifier = Modifier
@@ -50,18 +52,19 @@ fun CoinListItem(
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://cryptoflash-icons-api.herokuapp.com/32/${coinName?.get(0)}")
+                        .data(coinListViewModel.getCoinIcon(coinName!![0]))
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(id = R.drawable.ic_cloud_download),
                     error = painterResource(id = R.drawable.ic_image_not_supported),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(72.dp)
+                        .size(120.dp)
                         .clip(CircleShape)
                 )
             }
             Column(modifier = Modifier
+                .padding(start = 12.dp)
                 .weight(1f)
             ) {
                 Text(
@@ -98,6 +101,7 @@ fun CoinListItem(
     }
 }
 
+/*
 @Preview
 @Composable
 fun CoinListItemPreview() {
@@ -109,4 +113,4 @@ fun CoinListItemPreview() {
         ),
         onItemClick = {}
     )
-}
+}*/
