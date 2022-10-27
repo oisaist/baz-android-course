@@ -59,14 +59,25 @@ fun CoinDetailScreen(
                         )
                 ) {
                     CustomSpacer()
-
                     Text(text = "Prices", style = MaterialTheme.typography.h6, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
-
-                    TickerInformation(title = "High price: ", value = ticker.value?.payload?.high ?: "")
-
-                    TickerInformation(title = "Last price: ", value = ticker.value?.payload?.last ?: "")
-
-                    TickerInformation(title = "Low price: ", value = ticker.value?.payload?.low ?: "")
+                    when (ticker.value) {
+                        is NetworkResponse.Loading -> {
+                            CustomProgressBar(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 16.dp)
+                            )
+                        }
+                        is NetworkResponse.Success -> {
+                            TickerInformation(title = "High price: ", value = ticker.value?.data?.payload?.high ?: "")
+                            TickerInformation(title = "Last price: ", value = ticker.value?.data?.payload?.last ?: "")
+                            TickerInformation(title = "Low price: ", value = ticker.value?.data?.payload?.low ?: "")
+                        }
+                        else -> ErrorScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            errorText = orderBook.value?.message.toString()
+                        )
+                    }
                 }
                 CustomSpacer()
                 Text(

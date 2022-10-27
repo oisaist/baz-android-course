@@ -14,13 +14,7 @@ class GetTickerUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(book: String): Flow<TickerModel> = flow {
-        try {
-            val ticker = repository.getTicker(book)
-            emit(ticker)
-        } catch (e: HttpException) {
-            Log.d("GetTickerUseCase", "${e.code()} + ${e.localizedMessage}")
-        } catch (e: IOException) {
-            Log.d("GetTickerUseCase", e.localizedMessage ?: "An error unexpected occurred")
-        }
+        val ticker = repository.getTicker(book)
+        emit(ticker)
     }
 }

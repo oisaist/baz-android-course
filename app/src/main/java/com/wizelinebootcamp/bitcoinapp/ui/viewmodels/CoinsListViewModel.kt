@@ -24,16 +24,16 @@ class CoinsListViewModel @Inject constructor(
         MutableLiveData<NetworkResponse<BitsoApiResponse>>(NetworkResponse.Loading())
     val availableBooks: LiveData<NetworkResponse<BitsoApiResponse>> = _availableBooks
 
-    private fun getAvailableBooks() = viewModelScope.launch {
-        _availableBooks.value = NetworkResponse.Loading()
+    private fun getAvailableBooks() = viewModelScope.launch(Dispatchers.IO) {
+        _availableBooks.postValue(NetworkResponse.Loading())
         Log.d("CryptoApp", "Loading: ${_availableBooks.value}")
         availableBooksUseCase.invoke()
             .catch { e ->
-                _availableBooks.value = NetworkResponse.Error(message = e.localizedMessage ?: "An error unexpected occurred")
+                _availableBooks.postValue(NetworkResponse.Error(message = e.localizedMessage ?: "An error unexpected occurred"))
                 Log.d("CryptoApp", "Error: ${(_availableBooks.value as NetworkResponse.Error<BitsoApiResponse>).message}")
             }
             .collect { response ->
-                _availableBooks.value = NetworkResponse.Success(response)
+                _availableBooks.postValue(NetworkResponse.Success(response))
                 Log.d("CryptoApp", "Success: ${_availableBooks.value}")
             }
     }

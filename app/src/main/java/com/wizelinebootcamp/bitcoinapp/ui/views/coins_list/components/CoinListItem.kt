@@ -50,7 +50,7 @@ fun CoinListItem(
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://cryptoflash-icons-api.herokuapp.com/128/${coinName?.get(0)}")
+                        .data("https://cryptoflash-icons-api.herokuapp.com/32/${coinName?.get(0)}")
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(id = R.drawable.ic_cloud_download),

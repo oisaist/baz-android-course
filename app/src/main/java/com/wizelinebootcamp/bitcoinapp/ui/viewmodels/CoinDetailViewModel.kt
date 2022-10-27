@@ -1,5 +1,6 @@
 package com.wizelinebootcamp.bitcoinapp.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,17 +22,20 @@ class CoinDetailViewModel @Inject constructor(
     private val orderBookUseCase: GetOrderBookUseCase
 ) : ViewModel() {
 
-    private val _ticker = MutableLiveData<TickerModel?>()
-    val ticker: LiveData<TickerModel?> = _ticker
+    private val _ticker = MutableLiveData<NetworkResponse<TickerModel>>()
+    val ticker: LiveData<NetworkResponse<TickerModel>> = _ticker
 
     private val _orderBook = MutableLiveData<NetworkResponse<OrderBookModel>>()
     val orderBook: LiveData<NetworkResponse<OrderBookModel>> = _orderBook
 
     fun getTicker(book: String) = viewModelScope.launch(Dispatchers.IO) {
+        _ticker.postValue(NetworkResponse.Loading())
         tickerUseCase.invoke(book)
-            .catch {  }
+            .catch { e ->
+                _ticker.postValue(NetworkResponse.Error(e.localizedMessage ?: "An error unexpected occurred"))
+            }
             .collect {
-                _ticker.postValue(it)
+                _ticker.postValue(NetworkResponse.Success(it))
         }
     }
 
@@ -43,7 +47,6 @@ class CoinDetailViewModel @Inject constructor(
             }
             .collect { response ->
                 _orderBook.postValue(NetworkResponse.Success(response))
-
             }
     }
 }
