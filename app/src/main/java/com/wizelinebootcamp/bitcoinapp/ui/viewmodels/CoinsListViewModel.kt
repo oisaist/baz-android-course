@@ -24,9 +24,6 @@ class CoinsListViewModel @Inject constructor(
         MutableLiveData<NetworkResponse<BitsoApiResponse>>(NetworkResponse.Loading())
     val availableBooks: LiveData<NetworkResponse<BitsoApiResponse>> = _availableBooks
 
-    val loading = MutableLiveData(false)
-    val errorMessage = MutableLiveData<String?>()
-
     private fun getAvailableBooks() = viewModelScope.launch {
         _availableBooks.value = NetworkResponse.Loading()
         Log.d("CryptoApp", "Loading: ${_availableBooks.value}")
@@ -38,19 +35,6 @@ class CoinsListViewModel @Inject constructor(
             .collect { response ->
                 _availableBooks.value = NetworkResponse.Success(response)
                 Log.d("CryptoApp", "Success: ${_availableBooks.value}")
-                /*when(it) {
-                    is NetworkResponse.Loading -> {
-                        loading.value = true
-                    }
-                    is NetworkResponse.Success -> {
-                        loading.value = false
-                        _availableBooks.value = NetworkResponse.Success(it.data)
-                    }
-                    is NetworkResponse.Error -> {
-                        loading.value = false
-                        errorMessage.value = it.message
-                    }
-                }*/
             }
     }
 

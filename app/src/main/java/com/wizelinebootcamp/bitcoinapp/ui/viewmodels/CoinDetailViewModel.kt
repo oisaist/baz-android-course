@@ -1,6 +1,5 @@
 package com.wizelinebootcamp.bitcoinapp.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class CoinDetailViewModel @Inject constructor(
     private val tickerUseCase: GetTickerUseCase,
     private val orderBookUseCase: GetOrderBookUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _ticker = MutableLiveData<TickerModel?>()
     val ticker: LiveData<TickerModel?> = _ticker
@@ -30,42 +29,20 @@ class CoinDetailViewModel @Inject constructor(
 
     fun getTicker(book: String) = viewModelScope.launch(Dispatchers.IO) {
         tickerUseCase.invoke(book)
-            .catch {
-
-            }
+            .catch {  }
             .collect {
                 _ticker.postValue(it)
-                /*when (it) {
-                    is NetworkResponse.Loading -> {
-                    }
-                    is NetworkResponse.Success -> {
-                        _ticker.value = it.data
-                    }
-                    is NetworkResponse.Error -> {
-                    }
-                }*/
         }
-        /*_ticker.postValue(NetworkResponse.Loading())
-        tickerUseCase.invoke(book)
-            .catch { e ->
-                _ticker.postValue(NetworkResponse.Error(message = e.localizedMessage ?: "An error unexpected occurred"))
-            }
-            .collect { response ->
-                _ticker.postValue(NetworkResponse.Success(response))
-            }*/
     }
 
-    fun getOrderBook(book: String) = viewModelScope.launch {
-        _orderBook.value = NetworkResponse.Loading()
-        Log.d("CryptoApp", "Loading: ${_orderBook.value}")
+    fun getOrderBook(book: String) = viewModelScope.launch(Dispatchers.IO) {
+        _orderBook.postValue(NetworkResponse.Loading())
         orderBookUseCase.invoke(book)
             .catch { e ->
-                _orderBook.value = NetworkResponse.Error(e.localizedMessage ?: "An error unexpected occurred")
-                Log.d("CryptoApp", "Error: ${_orderBook.value}")
+                _orderBook.postValue(NetworkResponse.Error(e.localizedMessage ?: "An error unexpected occurred"))
             }
             .collect { response ->
-                _orderBook.value = NetworkResponse.Success(response)
-                Log.d("CryptoApp", "Success: ${_orderBook.value}")
+                _orderBook.postValue(NetworkResponse.Success(response))
 
             }
     }

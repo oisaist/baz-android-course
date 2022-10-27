@@ -6,8 +6,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinDetailViewModel
-import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
 import com.wizelinebootcamp.bitcoinapp.ui.views.CoinsListScreen
 import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.CoinDetailScreen
 

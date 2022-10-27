@@ -1,26 +1,19 @@
 package com.wizelinebootcamp.bitcoinapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.wizelinebootcamp.bitcoinapp.ui.navigation.NavigationGraph
 import com.wizelinebootcamp.bitcoinapp.ui.theme.BitCoinAppTheme
-import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinDetailViewModel
-import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    //private val coinListViewModel: CoinsListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
