@@ -1,6 +1,7 @@
 package com.wizelinebootcamp.bitcoinapp.domain
 
-import com.wizelinebootcamp.bitcoinapp.data.models.BitsoApiResponse
+import android.util.Log
+import com.wizelinebootcamp.bitcoinapp.data.models.OrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.repository.BitsoRepository
 import com.wizelinebootcamp.bitcoinapp.utils.NetworkResponse
 import kotlinx.coroutines.flow.Flow
@@ -9,12 +10,12 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetAvailableBooksUseCase @Inject constructor(
+class GetOrderBookUseCase @Inject constructor(
     private val repository: BitsoRepository
-) {
+){
 
-    suspend operator fun invoke(): Flow<BitsoApiResponse> = flow {
-        val availableBooks = repository.getAvailableBooks()
-        emit(availableBooks)
+    suspend operator fun invoke(book: String): Flow<OrderBookModel> = flow {
+        val orderBook = repository.getOrderBook(book)
+        emit(orderBook)
     }
 }

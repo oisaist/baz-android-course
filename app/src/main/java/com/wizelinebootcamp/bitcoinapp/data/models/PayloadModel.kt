@@ -13,4 +13,5 @@ data class PayloadModel(
     @SerializedName("tick_size") val tick_size: String? ="",
     @SerializedName("default_chart") val default_chart: String? ="",
     @SerializedName("fees") val fees: FeesModel? = FeesModel(),
+    val bookName: String? = ""
 )

@@ -79,4 +79,13 @@ dependencies {
     //DaggerHilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //Compose Navigation
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
+    //Hilt Navigation
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
 }
