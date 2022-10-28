@@ -33,7 +33,6 @@ fun CoinListItem(
     coinListViewModel: CoinsListViewModel,
     onItemClick: (PayloadModel) -> Unit
 ) {
-    val coinName = coin.book?.split("_")
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -52,7 +51,7 @@ fun CoinListItem(
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(coinListViewModel.getCoinIcon(coinName!![0]))
+                        .data(coinListViewModel.getCoinIcon(coin.bookName ?: ""))
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(id = R.drawable.ic_cloud_download),
