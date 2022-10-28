@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BitCoinApp</string>
+    <string name="top_bar_coins_list_screen">Crypto Concurrency</string>
+    <string name="top_bar_detail_screen">Coin Detail</string>
+    <string name="no_data_found">No data found</string>
+    <string name="prices">Prices</string>
+    <string name="high_price">High price:</string>
+    <string name="last_price">Last price:</string>
+    <string name="low_price">Low price:</string>
 </resources>
