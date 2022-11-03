@@ -1,4 +1,4 @@
-package com.wizelinebootcamp.bitcoinapp.utils.common_components
+package com.wizelinebootcamp.bitcoinapp.core.common_components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

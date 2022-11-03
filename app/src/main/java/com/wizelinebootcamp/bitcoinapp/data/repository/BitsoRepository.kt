@@ -1,12 +1,12 @@
 package com.wizelinebootcamp.bitcoinapp.data.repository
 
-import com.wizelinebootcamp.bitcoinapp.data.models.BitsoApiResponse
-import com.wizelinebootcamp.bitcoinapp.data.models.OrderBookModel
-import com.wizelinebootcamp.bitcoinapp.data.models.TickerModel
+import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
+import com.wizelinebootcamp.bitcoinapp.data.models.PayloadOrderBookModel
+import com.wizelinebootcamp.bitcoinapp.data.models.PayloadTickerModel
 
 interface BitsoRepository {
 
-    suspend fun getAvailableBooks(): BitsoApiResponse
-    suspend fun getTicker(book: String): TickerModel
-    suspend fun getOrderBook(book: String): OrderBookModel
+    suspend fun getAvailableBooks(): List<PayloadModel>
+    suspend fun getTicker(book: String): PayloadTickerModel
+    suspend fun getOrderBook(book: String): PayloadOrderBookModel
 }

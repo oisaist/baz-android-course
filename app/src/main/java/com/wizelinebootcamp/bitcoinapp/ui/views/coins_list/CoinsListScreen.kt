@@ -1,21 +1,19 @@
 package com.wizelinebootcamp.bitcoinapp.ui.views
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
 import com.wizelinebootcamp.bitcoinapp.ui.views.coins_list.components.CoinsList
 import com.wizelinebootcamp.bitcoinapp.ui.views.coins_list.components.TopBarCoinsListScreen
-import com.wizelinebootcamp.bitcoinapp.utils.NetworkResponse
-import com.wizelinebootcamp.bitcoinapp.utils.common_components.CustomProgressBar
-import com.wizelinebootcamp.bitcoinapp.utils.common_components.EmptyContent
-import com.wizelinebootcamp.bitcoinapp.utils.common_components.ErrorScreen
+import com.wizelinebootcamp.bitcoinapp.core.NetworkResponse
+import com.wizelinebootcamp.bitcoinapp.core.common_components.CustomProgressBar
+import com.wizelinebootcamp.bitcoinapp.core.common_components.EmptyContent
+import com.wizelinebootcamp.bitcoinapp.core.common_components.ErrorScreen
 
 @Composable
 fun CoinsListScreen(
@@ -34,12 +32,12 @@ fun CoinsListScreen(
                     )
                 }
                 is NetworkResponse.Success -> {
-                    if (networkResponse.data?.payload.isNullOrEmpty()) {
+                    if (networkResponse.data.isNullOrEmpty()) {
                         EmptyContent(modifier = Modifier.fillMaxSize())
                     } else {
                         CoinsList(
                             navController = navController,
-                            coinsList = networkResponse.data?.payload ?: listOf(),
+                            coinsList = networkResponse.data,
                             coinListViewModel = coinListViewModel
                         )
                     }

@@ -3,11 +3,12 @@ package com.wizelinebootcamp.bitcoinapp.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.wizelinebootcamp.bitcoinapp.BuildConfig
+import com.wizelinebootcamp.bitcoinapp.data.local.LocalBookDataSource
 import com.wizelinebootcamp.bitcoinapp.data.remote.BitsoApiService
 import com.wizelinebootcamp.bitcoinapp.data.remote.RemoteBitsoDataSource
 import com.wizelinebootcamp.bitcoinapp.data.repository.BitsoRepository
 import com.wizelinebootcamp.bitcoinapp.data.repository.BitsoRepositoryImpl
-import com.wizelinebootcamp.bitcoinapp.utils.Constants.Companion.BASE_URL
+import com.wizelinebootcamp.bitcoinapp.core.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,19 +23,25 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideBitsoRepository(
-        remoteBitsoDataSource: RemoteBitsoDataSource
+        remoteBitsoDataSource: RemoteBitsoDataSource,
+        localBookDataSource: LocalBookDataSource
     ): BitsoRepository {
-        return BitsoRepositoryImpl(remoteBitsoDataSource)
+        return BitsoRepositoryImpl(remoteBitsoDataSource, localBookDataSource)
     }
 
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient
-            .Builder()
+        return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val newRequest = chain.request().newBuilder()
+                    .addHeader("User-Agent", "CryptoApp-Kotlin")
+                    .build()
+                chain.proceed(newRequest)
+            }
             .addInterceptor(HttpLoggingInterceptor().apply {
                 setLevel(
                     if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY

@@ -1,6 +1,5 @@
 package com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -11,8 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.wizelinebootcamp.bitcoinapp.data.models.TickerModel
-import com.wizelinebootcamp.bitcoinapp.utils.ext_functions.formatAsCurrency
+import com.wizelinebootcamp.bitcoinapp.core.ext_functions.formatAsCurrency
 
 @Composable
 fun TickerInformation(

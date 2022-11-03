@@ -1,5 +1,6 @@
 package com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,32 +12,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.wizelinebootcamp.bitcoinapp.R
 import com.wizelinebootcamp.bitcoinapp.ui.theme.LighterGray
 import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinDetailViewModel
 import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.*
-import com.wizelinebootcamp.bitcoinapp.utils.NetworkResponse
-import com.wizelinebootcamp.bitcoinapp.utils.common_components.CustomProgressBar
-import com.wizelinebootcamp.bitcoinapp.utils.common_components.EmptyContent
-import com.wizelinebootcamp.bitcoinapp.utils.common_components.ErrorScreen
+import com.wizelinebootcamp.bitcoinapp.core.NetworkResponse
+import com.wizelinebootcamp.bitcoinapp.core.common_components.CustomProgressBar
+import com.wizelinebootcamp.bitcoinapp.core.common_components.EmptyContent
+import com.wizelinebootcamp.bitcoinapp.core.common_components.ErrorScreen
 
 @Composable
 fun CoinDetailScreen(
     navController: NavController,
-    book: String,
+    book: String?,
     coinDetailViewModel: CoinDetailViewModel = hiltViewModel()
 ) {
-    val coinName = book.split("_")
+    val coinName = book?.split("_")
     val scrollState = rememberScrollState()
 
     LaunchedEffect(key1 = true) {
-        coinDetailViewModel.getTicker(book)
+        coinDetailViewModel.getTicker(book!!)
         coinDetailViewModel.getOrderBook(book)
     }
     val ticker = coinDetailViewModel.ticker.observeAsState()
@@ -50,7 +49,7 @@ fun CoinDetailScreen(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                CoinImage(coinName[0])
+                CoinImage(coinName?.get(0) ?: "")
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -60,24 +59,9 @@ fun CoinDetailScreen(
                 ) {
                     CustomSpacer()
                     Text(text = "Prices", style = MaterialTheme.typography.h6, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
-                    when (ticker.value) {
-                        is NetworkResponse.Loading -> {
-                            CustomProgressBar(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 16.dp)
-                            )
-                        }
-                        is NetworkResponse.Success -> {
-                            TickerInformation(title = "High price: ", value = ticker.value?.data?.payload?.high ?: "")
-                            TickerInformation(title = "Last price: ", value = ticker.value?.data?.payload?.last ?: "")
-                            TickerInformation(title = "Low price: ", value = ticker.value?.data?.payload?.low ?: "")
-                        }
-                        else -> ErrorScreen(
-                            modifier = Modifier.fillMaxSize(),
-                            errorText = orderBook.value?.message.toString()
-                        )
-                    }
+                    TickerInformation(title = "High price: ", value = ticker.value?.high ?: "")
+                    TickerInformation(title = "Last price: ", value = ticker.value?.last ?: "")
+                    TickerInformation(title = "Low price: ", value = ticker.value?.low ?: "")
                 }
                 CustomSpacer()
                 Text(
@@ -89,27 +73,7 @@ fun CoinDetailScreen(
                 )
 
                 CustomSpacer()
-                when (orderBook.value) {
-                    is NetworkResponse.Loading -> {
-                        CustomProgressBar(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 16.dp)
-                        )
-                    }
-                    is NetworkResponse.Success -> {
-                        if (orderBook.value?.data?.payload?.bids.isNullOrEmpty()) EmptyContent(
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        else BidAskList(
-                            bidAksModel = orderBook.value?.data?.payload?.bids ?: listOf()
-                        )
-                    }
-                    else -> ErrorScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        errorText = orderBook.value?.message.toString()
-                    )
-                }
+                BidAskList(bidAksModel = orderBook.value?.bids ?: listOf())
 
                 CustomSpacer()
                 Text(
@@ -121,28 +85,9 @@ fun CoinDetailScreen(
                 )
 
                 CustomSpacer()
-                when (orderBook.value) {
-                    is NetworkResponse.Loading -> {
-                        CustomProgressBar(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 16.dp)
-                        )
-                    }
-                    is NetworkResponse.Success -> {
-                        if (orderBook.value?.data?.payload?.asks.isNullOrEmpty()) EmptyContent(
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        else BidAskList(
-                            bidAksModel = orderBook.value?.data?.payload?.asks ?: listOf()
-                        )
-                        CustomSpacer()
-                    }
-                    else -> ErrorScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        errorText = orderBook.value?.message.toString()
-                    )
-                }
+                BidAskList(
+                    bidAksModel = orderBook.value?.asks ?: listOf()
+                )
             }
         }
     )

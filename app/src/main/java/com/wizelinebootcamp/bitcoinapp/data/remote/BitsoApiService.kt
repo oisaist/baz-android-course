@@ -3,7 +3,7 @@ package com.wizelinebootcamp.bitcoinapp.data.remote
 import com.wizelinebootcamp.bitcoinapp.data.models.BitsoApiResponse
 import com.wizelinebootcamp.bitcoinapp.data.models.OrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.models.TickerModel
-import com.wizelinebootcamp.bitcoinapp.utils.Constants
+import com.wizelinebootcamp.bitcoinapp.core.Constants
 import retrofit2.http.GET
 import retrofit2.http.Query
 

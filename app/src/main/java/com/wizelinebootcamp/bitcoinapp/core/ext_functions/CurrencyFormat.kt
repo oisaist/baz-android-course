@@ -1,4 +1,4 @@
-package com.wizelinebootcamp.bitcoinapp.utils.ext_functions
+package com.wizelinebootcamp.bitcoinapp.core.ext_functions
 
 import java.text.NumberFormat
 

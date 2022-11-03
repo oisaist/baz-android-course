@@ -1,4 +1,4 @@
-package com.wizelinebootcamp.bitcoinapp.utils
+package com.wizelinebootcamp.bitcoinapp.core
 
 sealed class NetworkResponse<T>(
     val data: T? = null,

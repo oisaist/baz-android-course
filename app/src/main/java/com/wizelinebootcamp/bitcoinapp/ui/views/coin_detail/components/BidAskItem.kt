@@ -11,8 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wizelinebootcamp.bitcoinapp.data.models.BidAskModel
-import com.wizelinebootcamp.bitcoinapp.ui.theme.CustomGreen
-import com.wizelinebootcamp.bitcoinapp.utils.ext_functions.formatAsCurrency
+import com.wizelinebootcamp.bitcoinapp.core.ext_functions.formatAsCurrency
 
 @Composable
 fun BidAskItem(
@@ -38,22 +37,26 @@ fun BidAskItem(
             }
             Column(modifier = Modifier.padding(horizontal = 8.dp)) {
                 Text(
-                    text = model.book,
+                    text = model.book ?: "",
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = model.price.toFloat().formatAsCurrency(),
-                    style = MaterialTheme.typography.subtitle1
-                )
+                model.price?.toFloat()?.let {
+                    Text(
+                        text = it.formatAsCurrency(),
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                }
                 Spacer(
                     modifier = Modifier.height(8.dp)
                 )
-                Text(
-                    text = model.amount.toFloat().formatAsCurrency(),
-                    style = MaterialTheme.typography.subtitle1
-                )
+                model.amount?.toFloat()?.let {
+                    Text(
+                        text = it.formatAsCurrency(),
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                }
             }
         }
     }

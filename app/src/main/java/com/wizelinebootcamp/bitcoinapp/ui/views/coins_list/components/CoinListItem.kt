@@ -13,10 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -25,7 +23,7 @@ import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
 import com.wizelinebootcamp.bitcoinapp.ui.theme.CustomGreen
 import com.wizelinebootcamp.bitcoinapp.ui.theme.CustomRed
 import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
-import com.wizelinebootcamp.bitcoinapp.utils.ext_functions.formatAsCurrency
+import com.wizelinebootcamp.bitcoinapp.core.ext_functions.formatAsCurrency
 
 @Composable
 fun CoinListItem(
@@ -55,11 +53,11 @@ fun CoinListItem(
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(id = R.drawable.ic_cloud_download),
-                    error = painterResource(id = R.drawable.ic_image_not_supported),
+                    error = painterResource(id = R.drawable.ic_wifi_off),
                     contentDescription = null,
                     modifier = Modifier
                         .size(120.dp)
-                        .clip(CircleShape)
+                        .clip(CircleShape),
                 )
             }
             Column(modifier = Modifier

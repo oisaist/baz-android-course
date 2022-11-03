@@ -88,4 +88,13 @@ dependencies {
 
     //Hilt Navigation
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
+
+    //Room Database
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt "androidx.room:room-compiler:$roomVersion"
+    //Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    //Mock unit test
+    testImplementation "io.mockk:mockk:1.12.4"
 }
