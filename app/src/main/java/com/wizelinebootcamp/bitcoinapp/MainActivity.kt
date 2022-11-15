@@ -24,14 +24,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    /*val books = coinListViewModel.availableBooks.observeAsState().value
-                    //val listBooks = books?.payload?.map { it.book }?.distinct()
-                    val listBooks = books?.payload?.filter { it.book!!.contains("mxn") }
-                    listBooks?.forEach {
-                        val coinName = it.book?.split("_")
-                        Log.d("CryptoApp", "${coinName?.get(0)}")
-                    }
-                    Log.e("CryptoApp", "Size: listBooks: ${listBooks?.size}")*/
                     val navController = rememberNavController()
                     NavigationGraph(
                         navController = navController

@@ -35,18 +35,6 @@ class CoinsListViewModel @Inject constructor(
                         }
                     }
                 }
-            /*_availableBooks.postValue(NetworkResponse.Loading())
-            availableBooksUseCase.invoke()
-                .catch { e ->
-                    _availableBooks.postValue(
-                        NetworkResponse.Error(
-                            message = e.localizedMessage ?: "An error unexpected occurred"
-                        )
-                    )
-                }
-                .collect { response ->
-                    _availableBooks.postValue(NetworkResponse.Success(response))
-                }*/
         } catch (ex: Exception) {
             Log.d("CryptoApp", "Loading: ${ex.localizedMessage}")
         }

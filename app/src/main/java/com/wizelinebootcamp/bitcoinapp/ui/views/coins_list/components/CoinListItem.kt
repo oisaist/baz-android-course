@@ -97,17 +97,3 @@ fun CoinListItem(
         }
     }
 }
-
-/*
-@Preview
-@Composable
-fun CoinListItemPreview() {
-    CoinListItem(
-        coin = PayloadModel(
-            book = "btc_mxn",
-            minimum_price = "40000",
-            maximum_price = "20000000"
-        ),
-        onItemClick = {}
-    )
-}*/

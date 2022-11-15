@@ -2,8 +2,16 @@ package com.wizelinebootcamp.bitcoinapp.data.repository
 
 import android.annotation.SuppressLint
 import com.wizelinebootcamp.bitcoinapp.core.CheckInternetConnection
-import com.wizelinebootcamp.bitcoinapp.data.local.*
-import com.wizelinebootcamp.bitcoinapp.data.models.*
+import com.wizelinebootcamp.bitcoinapp.data.local.LocalBookDataSource
+import com.wizelinebootcamp.bitcoinapp.data.local.toBookListEntity
+import com.wizelinebootcamp.bitcoinapp.data.local.toPayloadListModel
+import com.wizelinebootcamp.bitcoinapp.data.local.toPayloadTickerModel
+import com.wizelinebootcamp.bitcoinapp.data.local.toOrderBookEntity
+import com.wizelinebootcamp.bitcoinapp.data.local.toPayloadOrderBookModel
+import com.wizelinebootcamp.bitcoinapp.data.local.toTickerEntity
+import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
+import com.wizelinebootcamp.bitcoinapp.data.models.PayloadTickerModel
+import com.wizelinebootcamp.bitcoinapp.data.models.PayloadOrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.remote.RemoteBitsoDataSource
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
