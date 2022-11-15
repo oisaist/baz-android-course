@@ -7,6 +7,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
+import io.reactivex.Observable
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -42,7 +43,8 @@ class GetTickerUseCaseTest {
             change_24 = "-41770",
             rolling_average_change = AverageChangeModel(s6 = "-0.2903")
         )
-        coEvery { repository.getTicker(book) } returns ticker
+        val observable = Observable.just(ticker)
+        coEvery { repository.getTicker(book) } returns observable
 
         //When
         getTickerUseCase(book)
@@ -67,7 +69,8 @@ class GetTickerUseCaseTest {
             change_24 = "",
             rolling_average_change = AverageChangeModel(s6 = "")
         )
-        coEvery { repository.getTicker(any()) } returns ticker
+        val observable = Observable.just(ticker)
+        coEvery { repository.getTicker(any()) } returns observable
 
         //When
         getTickerUseCase(book)

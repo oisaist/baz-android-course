@@ -1,9 +1,16 @@
 package com.wizelinebootcamp.bitcoinapp.data.repository
 
+import android.annotation.SuppressLint
 import com.wizelinebootcamp.bitcoinapp.core.CheckInternetConnection
 import com.wizelinebootcamp.bitcoinapp.data.local.*
 import com.wizelinebootcamp.bitcoinapp.data.models.*
 import com.wizelinebootcamp.bitcoinapp.data.remote.RemoteBitsoDataSource
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class BitsoRepositoryImpl @Inject constructor(
@@ -20,25 +27,32 @@ class BitsoRepositoryImpl @Inject constructor(
         return localBookDataSource.getAvailableBooks().toPayloadListModel()
     }
 
-    override suspend fun getTicker(book: String): PayloadTickerModel {
+    @OptIn(DelicateCoroutinesApi::class)
+    @SuppressLint("CheckResult")
+    override suspend fun getTicker(book: String): Observable<PayloadTickerModel> {
         return if (CheckInternetConnection.isNetworkAvailable()) {
-            val ticker = remoteBitsoDataSource.getTicker(book).payload
-            localBookDataSource.insertTicker(ticker!!.toTickerEntity())
-            remoteBitsoDataSource.getTicker(book).payload ?: PayloadTickerModel()
+            remoteBitsoDataSource.getTicker(book)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { tickerModel ->
+                    GlobalScope.launch {
+                        localBookDataSource.insertTicker(tickerModel.payload!!.toTickerEntity())
+                    }
+                }
+            remoteBitsoDataSource.getTicker(book).map { it.payload }
         } else {
-
-            localBookDataSource.getTicker(book)?.toPayloadTickerModel() ?: PayloadTickerModel()
+            localBookDataSource.getTicker(book).map { it.toPayloadTickerModel() }
         }
     }
 
     override suspend fun getOrderBook(book: String): PayloadOrderBookModel {
         return if (CheckInternetConnection.isNetworkAvailable()) {
-            val orderBook = remoteBitsoDataSource.getOrderBook(book).payload
-            localBookDataSource.insertOrderBook(orderBook.toOrderBookEntity(book))
-            remoteBitsoDataSource.getOrderBook(book).payload
-            //return localBookDataSource.getOrderBook(book)?.toPayloadOrderBookModel() ?: OrderBookEntity(book).toPayloadOrderBookModel()
+            val orderBook = remoteBitsoDataSource.getOrderBook(book)?.payload
+            localBookDataSource.insertOrderBook(orderBook!!.toOrderBookEntity(book))
+            remoteBitsoDataSource.getOrderBook(book)?.payload ?: PayloadOrderBookModel()
         } else {
-            localBookDataSource.getOrderBook(book)?.toPayloadOrderBookModel() ?: PayloadOrderBookModel()
+            localBookDataSource.getOrderBook(book)?.toPayloadOrderBookModel()
+                ?: PayloadOrderBookModel()
         }
     }
 }

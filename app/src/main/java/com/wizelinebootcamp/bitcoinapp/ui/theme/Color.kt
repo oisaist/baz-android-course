@@ -9,4 +9,7 @@ val Teal200 = Color(0xFF03DAC5)
 
 val CustomRed = Color(0xFFE8503A)
 val CustomGreen = Color(0xFF19B661)
-val LighterGray = Color(0xFFf5f5f5)
+
+val WhiteColor = Color(0xFFFFFFFF)
+val BlackColor = Color(0xFF000000)
+val Gray50 = Color(0xFFefefef)

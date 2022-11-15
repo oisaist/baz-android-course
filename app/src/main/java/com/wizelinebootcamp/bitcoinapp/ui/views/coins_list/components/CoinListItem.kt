@@ -3,7 +3,6 @@ package com.wizelinebootcamp.bitcoinapp.ui.views.coins_list.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -13,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -34,9 +35,8 @@ fun CoinListItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(6.dp),
-        elevation = 6.dp,
-        shape = RoundedCornerShape(8.dp)
+            .padding(3.dp),
+        elevation = 6.dp
     ) {
         Row(modifier = Modifier
             .fillMaxWidth()
@@ -53,7 +53,7 @@ fun CoinListItem(
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(id = R.drawable.ic_cloud_download),
-                    error = painterResource(id = R.drawable.ic_wifi_off),
+                    error = painterResource(id = R.drawable.ic_default_bitcoin),
                     contentDescription = null,
                     modifier = Modifier
                         .size(120.dp)
@@ -68,7 +68,7 @@ fun CoinListItem(
                     text = coin.book?.uppercase() ?: "",
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.body1,
                     modifier = Modifier.fillMaxWidth()
                 )
             }

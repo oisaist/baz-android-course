@@ -29,7 +29,7 @@ fun BidAskItem(
                     Row {
                         Text(
                             text = it,
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MaterialTheme.typography.body1,
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -38,14 +38,14 @@ fun BidAskItem(
             Column(modifier = Modifier.padding(horizontal = 8.dp)) {
                 Text(
                     text = model.book ?: "",
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 model.price?.toFloat()?.let {
                     Text(
                         text = it.formatAsCurrency(),
-                        style = MaterialTheme.typography.subtitle1
+                        style = MaterialTheme.typography.body1
                     )
                 }
                 Spacer(
@@ -54,7 +54,7 @@ fun BidAskItem(
                 model.amount?.toFloat()?.let {
                     Text(
                         text = it.formatAsCurrency(),
-                        style = MaterialTheme.typography.subtitle1
+                        style = MaterialTheme.typography.body1
                     )
                 }
             }

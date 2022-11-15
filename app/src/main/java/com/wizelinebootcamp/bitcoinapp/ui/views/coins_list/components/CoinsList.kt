@@ -14,7 +14,12 @@ fun CoinsList(
     coinListViewModel: CoinsListViewModel
 ) {
     LazyColumn {
-        items(coinsList) { coin ->
+        items(
+            items = coinsList,
+            key = {
+                it.book.toString()
+            }
+        ) { coin ->
             CoinListItem(
                 coin = coin,
                 coinListViewModel = coinListViewModel,

@@ -6,6 +6,7 @@ import com.wizelinebootcamp.bitcoinapp.data.local.dao.TickerDao
 import com.wizelinebootcamp.bitcoinapp.data.local.entities.BookEntity
 import com.wizelinebootcamp.bitcoinapp.data.local.entities.OrderBookEntity
 import com.wizelinebootcamp.bitcoinapp.data.local.entities.TickerEntity
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class LocalBookDataSource @Inject constructor(
@@ -20,7 +21,7 @@ class LocalBookDataSource @Inject constructor(
     suspend fun deleteAllBooks() = bookDao.deleteAllBooks()
 
     //ticker
-    suspend fun getTicker(book: String) = tickerDao.getTicker(book)
+    fun getTicker(book: String) : Observable<TickerEntity?> = tickerDao.getTicker(book)
     suspend fun insertTicker(ticker: TickerEntity) = tickerDao.insertObj(ticker)
 
     //orderBook

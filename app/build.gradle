@@ -45,6 +45,12 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        }
+    }
 }
 
 dependencies {
@@ -94,7 +100,16 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     //Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
+    //RxJava2 support for Room
+    implementation("androidx.room:room-rxjava2:$roomVersion")
 
     //Mock unit test
     testImplementation "io.mockk:mockk:1.12.4"
+
+    //RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    //RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //RxJava adapter
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
 }

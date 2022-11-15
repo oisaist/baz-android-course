@@ -25,15 +25,11 @@ fun TickerInformation(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.subtitle1,
-            color = Color.DarkGray,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.body1,
         )
         Text(
             text = if (value.isNotEmpty()) value.toFloat().formatAsCurrency() else "-",
-            style = MaterialTheme.typography.subtitle1,
-            color = Color.DarkGray,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.body1,
         )
     }
     Column {

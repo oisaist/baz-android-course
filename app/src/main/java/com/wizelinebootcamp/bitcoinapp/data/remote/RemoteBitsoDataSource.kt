@@ -3,6 +3,7 @@ package com.wizelinebootcamp.bitcoinapp.data.remote
 import com.wizelinebootcamp.bitcoinapp.data.models.BitsoApiResponse
 import com.wizelinebootcamp.bitcoinapp.data.models.OrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.models.TickerModel
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class RemoteBitsoDataSource @Inject constructor(
@@ -17,7 +18,7 @@ class RemoteBitsoDataSource @Inject constructor(
         }
         return result
     }
-    suspend fun getTicker(book: String): TickerModel = apiService.getTicker(book)
-    suspend fun getOrderBook(book: String): OrderBookModel = apiService.getOrderBook(book)
+    fun getTicker(book: String): Observable<TickerModel> = apiService.getTicker(book)
+    suspend fun getOrderBook(book: String): OrderBookModel? = apiService.getOrderBook(book)
 
 }
