@@ -9,5 +9,5 @@ import io.reactivex.Observable
 interface TickerDao : BaseDao<TickerEntity> {
 
     @Query("SELECT * FROM ticker_table WHERE book = :book")
-    fun getTicker(book: String?) : Observable<TickerEntity?>
+    fun getTicker(book: String?): Observable<TickerEntity?>
 }

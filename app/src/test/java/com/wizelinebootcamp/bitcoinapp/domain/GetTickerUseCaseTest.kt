@@ -12,7 +12,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-
 class GetTickerUseCaseTest {
 
     @RelaxedMockK
@@ -28,7 +27,7 @@ class GetTickerUseCaseTest {
 
     @Test
     fun `repository return a value not empty for ticker`() = runBlocking {
-        //Given
+        // Given
         val book = "btc_mxn"
         val ticker = PayloadTickerModel(
             high = "362480",
@@ -46,11 +45,11 @@ class GetTickerUseCaseTest {
         val observable = Observable.just(ticker)
         coEvery { repository.getTicker(book) } returns observable
 
-        //When
+        // When
         getTickerUseCase(book)
 
-        //Then
-         coVerify(exactly = 1) { repository.getTicker(book) }
+        // Then
+        coVerify(exactly = 1) { repository.getTicker(book) }
     }
 
     @Test
@@ -72,10 +71,10 @@ class GetTickerUseCaseTest {
         val observable = Observable.just(ticker)
         coEvery { repository.getTicker(any()) } returns observable
 
-        //When
+        // When
         getTickerUseCase(book)
 
-        //Then
+        // Then
         coVerify(exactly = 1) { repository.getTicker(any()) }
     }
 }

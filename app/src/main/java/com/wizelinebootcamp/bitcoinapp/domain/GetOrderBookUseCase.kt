@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetOrderBookUseCase @Inject constructor(
     private val repository: BitsoRepository
-){
+) {
 
     suspend operator fun invoke(book: String): PayloadOrderBookModel = repository.getOrderBook(book)
 }

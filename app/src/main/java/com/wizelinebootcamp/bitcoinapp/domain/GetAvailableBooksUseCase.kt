@@ -1,11 +1,11 @@
 package com.wizelinebootcamp.bitcoinapp.domain
 
+import com.wizelinebootcamp.bitcoinapp.core.NetworkResponse
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
 import com.wizelinebootcamp.bitcoinapp.data.repository.BitsoRepository
-import com.wizelinebootcamp.bitcoinapp.core.NetworkResponse
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
 class GetAvailableBooksUseCase @Inject constructor(
     private val repository: BitsoRepository

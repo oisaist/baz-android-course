@@ -5,17 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wizelinebootcamp.bitcoinapp.domain.GetOrderBookUseCase
-import com.wizelinebootcamp.bitcoinapp.domain.GetTickerUseCase
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadOrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadTickerModel
+import com.wizelinebootcamp.bitcoinapp.domain.GetOrderBookUseCase
+import com.wizelinebootcamp.bitcoinapp.domain.GetTickerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(

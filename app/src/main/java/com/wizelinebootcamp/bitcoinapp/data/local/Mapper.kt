@@ -3,7 +3,6 @@ package com.wizelinebootcamp.bitcoinapp.data.local
 import com.wizelinebootcamp.bitcoinapp.data.local.entities.BookEntity
 import com.wizelinebootcamp.bitcoinapp.data.local.entities.OrderBookEntity
 import com.wizelinebootcamp.bitcoinapp.data.local.entities.TickerEntity
-import com.wizelinebootcamp.bitcoinapp.data.models.BidAskModel
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadOrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadTickerModel

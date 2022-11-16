@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +29,7 @@ fun CoinImage(coinName: String) {
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data("https://cryptoflash-icons-api.herokuapp.com/128/${coinName}")
+                .data("https://cryptoflash-icons-api.herokuapp.com/128/$coinName")
                 .crossfade(true)
                 .build(),
             placeholder = painterResource(id = R.drawable.ic_cloud_download),

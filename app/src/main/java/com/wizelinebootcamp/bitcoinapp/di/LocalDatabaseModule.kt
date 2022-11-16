@@ -2,8 +2,8 @@ package com.wizelinebootcamp.bitcoinapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.wizelinebootcamp.bitcoinapp.data.local.db.BookDatabase
 import com.wizelinebootcamp.bitcoinapp.core.Constants.Companion.CRYPTO_CURRENCY_DATABASE
+import com.wizelinebootcamp.bitcoinapp.data.local.db.BookDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

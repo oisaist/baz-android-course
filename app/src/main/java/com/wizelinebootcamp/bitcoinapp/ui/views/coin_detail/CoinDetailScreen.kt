@@ -1,6 +1,9 @@
 package com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
@@ -19,10 +22,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.wizelinebootcamp.bitcoinapp.R
 import com.wizelinebootcamp.bitcoinapp.core.common_components.CustomTopAppBar
 import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinDetailViewModel
-import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.*
-import com.wizelinebootcamp.bitcoinapp.R
+import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.BidAskList
+import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.CoinImage
+import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.CustomSpacer
+import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.TickerInformation
 
 @Composable
 fun CoinDetailScreen(

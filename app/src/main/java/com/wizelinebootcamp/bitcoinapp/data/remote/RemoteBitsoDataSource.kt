@@ -20,5 +20,4 @@ class RemoteBitsoDataSource @Inject constructor(
     }
     fun getTicker(book: String): Observable<TickerModel> = apiService.getTicker(book)
     suspend fun getOrderBook(book: String): OrderBookModel? = apiService.getOrderBook(book)
-
 }

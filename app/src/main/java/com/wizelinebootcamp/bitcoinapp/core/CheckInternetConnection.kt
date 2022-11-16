@@ -2,13 +2,13 @@
 
 package com.wizelinebootcamp.bitcoinapp.core
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.nio.channels.IllegalBlockingModeException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 
 object CheckInternetConnection {
 
@@ -21,9 +21,8 @@ object CheckInternetConnection {
                 sock.close()
                 true
             }
-        }
-        catch (e: IOException) { false }
-        catch (e: IllegalBlockingModeException) { false }
-        catch (e: IllegalArgumentException) { false }
+        } catch (e: IOException) { false } catch (e: IllegalBlockingModeException) { false } catch (
+            e: IllegalArgumentException
+        ) { false }
     }
 }

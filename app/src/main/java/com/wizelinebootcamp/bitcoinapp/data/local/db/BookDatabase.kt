@@ -19,7 +19,7 @@ import com.wizelinebootcamp.bitcoinapp.data.local.entities.TickerEntity
 @TypeConverters(OrderBookTypeConverter::class)
 abstract class BookDatabase : RoomDatabase() {
 
-    abstract fun bookDao() : BookDao
-    abstract fun tickerDao() : TickerDao
-    abstract fun orderBookDao() : OrderBookDao
+    abstract fun bookDao(): BookDao
+    abstract fun tickerDao(): TickerDao
+    abstract fun orderBookDao(): OrderBookDao
 }

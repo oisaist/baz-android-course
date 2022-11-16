@@ -8,5 +8,5 @@ import com.wizelinebootcamp.bitcoinapp.data.local.entities.OrderBookEntity
 interface OrderBookDao : BaseDao<OrderBookEntity> {
 
     @Query("SELECT * FROM order_book_table WHERE book = :book")
-    suspend fun getOrderBook(book: String?) : OrderBookEntity?
+    suspend fun getOrderBook(book: String?): OrderBookEntity?
 }

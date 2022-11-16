@@ -1,8 +1,6 @@
 package com.wizelinebootcamp.bitcoinapp.domain
 
 import com.wizelinebootcamp.bitcoinapp.data.models.BidAskModel
-import com.wizelinebootcamp.bitcoinapp.data.models.OrderBookModel
-import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadOrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.repository.BitsoRepository
 import io.mockk.MockKAnnotations
@@ -12,7 +10,6 @@ import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-
 
 class GetOrderBookUseCaseTest {
 
@@ -29,7 +26,7 @@ class GetOrderBookUseCaseTest {
 
     @Test
     fun `repository return a value not empty`() = runBlocking {
-        //Given
+        // Given
         val book = "btc_mxn"
         val orderBook = PayloadOrderBookModel(
             updated_at = "2022-11-09T21:51:27+00:00",
@@ -39,10 +36,10 @@ class GetOrderBookUseCaseTest {
         )
         coEvery { repository.getOrderBook(book) } returns orderBook
 
-        //When
+        // When
         getOrderBookUseCase(book)
 
-        //Then
+        // Then
         coVerify(exactly = 1) { repository.getOrderBook(book) }
     }
 
@@ -57,10 +54,10 @@ class GetOrderBookUseCaseTest {
         )
         coEvery { repository.getOrderBook(book) } returns orderBook
 
-        //When
+        // When
         getOrderBookUseCase(book)
 
-        //Then
+        // Then
         coVerify(exactly = 1) { repository.getOrderBook(book) }
     }
 }

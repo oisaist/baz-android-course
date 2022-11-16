@@ -9,5 +9,6 @@ class GetTickerUseCase @Inject constructor(
     private val repository: BitsoRepository
 ) {
 
-    suspend operator fun invoke(book: String): Observable<PayloadTickerModel> = repository.getTicker(book)
+    suspend operator fun invoke(book: String): Observable<PayloadTickerModel> =
+        repository.getTicker(book)
 }

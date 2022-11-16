@@ -19,10 +19,12 @@ fun NavigationGraph(
         }
         composable(
             route = Screen.CoinDetail.route,
-            arguments = listOf(navArgument("book") {
-                type = NavType.StringType
-                nullable = true
-            })
+            arguments = listOf(
+                navArgument("book") {
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
         ) {
             val book = it.arguments?.getString("book").toString()
             CoinDetailScreen(

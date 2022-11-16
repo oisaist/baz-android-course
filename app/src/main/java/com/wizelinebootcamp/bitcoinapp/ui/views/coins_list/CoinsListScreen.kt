@@ -9,13 +9,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.wizelinebootcamp.bitcoinapp.R
-import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
-import com.wizelinebootcamp.bitcoinapp.ui.views.coins_list.components.CoinsList
 import com.wizelinebootcamp.bitcoinapp.core.NetworkResponse
 import com.wizelinebootcamp.bitcoinapp.core.common_components.CustomProgressBar
 import com.wizelinebootcamp.bitcoinapp.core.common_components.CustomTopAppBar
 import com.wizelinebootcamp.bitcoinapp.core.common_components.EmptyContent
 import com.wizelinebootcamp.bitcoinapp.core.common_components.ErrorScreen
+import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
+import com.wizelinebootcamp.bitcoinapp.ui.views.coins_list.components.CoinsList
 
 @Composable
 fun CoinsListScreen(
@@ -58,5 +58,4 @@ fun CoinsListScreen(
             }
         }
     )
-
 }

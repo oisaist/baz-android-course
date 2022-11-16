@@ -3,22 +3,22 @@ package com.wizelinebootcamp.bitcoinapp.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.wizelinebootcamp.bitcoinapp.BuildConfig
+import com.wizelinebootcamp.bitcoinapp.core.Constants.Companion.BASE_URL
 import com.wizelinebootcamp.bitcoinapp.data.local.LocalBookDataSource
 import com.wizelinebootcamp.bitcoinapp.data.remote.BitsoApiService
 import com.wizelinebootcamp.bitcoinapp.data.remote.RemoteBitsoDataSource
 import com.wizelinebootcamp.bitcoinapp.data.repository.BitsoRepository
 import com.wizelinebootcamp.bitcoinapp.data.repository.BitsoRepositoryImpl
-import com.wizelinebootcamp.bitcoinapp.core.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -43,12 +43,14 @@ object NetworkModule {
                     .build()
                 chain.proceed(newRequest)
             }
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                setLevel(
-                    if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-                    else HttpLoggingInterceptor.Level.NONE
-                )
-            })
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    setLevel(
+                        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                        else HttpLoggingInterceptor.Level.NONE
+                    )
+                }
+            )
             .build()
     }
 
@@ -74,5 +76,6 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideBitsoApiService(retrofit: Retrofit): BitsoApiService = retrofit.create(BitsoApiService::class.java)
+    fun provideBitsoApiService(retrofit: Retrofit): BitsoApiService =
+        retrofit.create(BitsoApiService::class.java)
 }

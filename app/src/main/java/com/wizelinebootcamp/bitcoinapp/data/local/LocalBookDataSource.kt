@@ -15,17 +15,16 @@ class LocalBookDataSource @Inject constructor(
     private val orderBookDao: OrderBookDao
 ) {
 
-    //availableBooks
+    // availableBooks
     suspend fun getAvailableBooks(): List<BookEntity> = bookDao.getAvailableBooks()
     suspend fun insertBookList(bookList: List<BookEntity>) = bookDao.insertList(bookList)
     suspend fun deleteAllBooks() = bookDao.deleteAllBooks()
 
-    //ticker
-    fun getTicker(book: String) : Observable<TickerEntity?> = tickerDao.getTicker(book)
+    // ticker
+    fun getTicker(book: String): Observable<TickerEntity?> = tickerDao.getTicker(book)
     suspend fun insertTicker(ticker: TickerEntity) = tickerDao.insertObj(ticker)
 
-    //orderBook
+    // orderBook
     suspend fun getOrderBook(book: String) = orderBookDao.getOrderBook(book)
     suspend fun insertOrderBook(orderBook: OrderBookEntity) = orderBookDao.insertObj(orderBook)
-
 }

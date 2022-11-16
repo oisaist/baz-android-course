@@ -17,5 +17,5 @@ data class BookEntity(
     @ColumnInfo(name = "maximum_value") val maximum_value: String,
     @ColumnInfo(name = "tick_size") val tick_size: String,
     @ColumnInfo(name = "default_chart") val default_chart: String,
-    @ColumnInfo(name = "bookName") val bookName: String ,
+    @ColumnInfo(name = "bookName") val bookName: String,
 )

@@ -1,7 +1,13 @@
 package com.wizelinebootcamp.bitcoinapp.ui.views.coins_list.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -12,19 +18,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.wizelinebootcamp.bitcoinapp.R
+import com.wizelinebootcamp.bitcoinapp.core.ext_functions.formatAsCurrency
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadModel
 import com.wizelinebootcamp.bitcoinapp.ui.theme.CustomGreen
 import com.wizelinebootcamp.bitcoinapp.ui.theme.CustomRed
 import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinsListViewModel
-import com.wizelinebootcamp.bitcoinapp.core.ext_functions.formatAsCurrency
 
 @Composable
 fun CoinListItem(
@@ -38,14 +42,16 @@ fun CoinListItem(
             .padding(3.dp),
         elevation = 6.dp
     ) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onItemClick(coin) },
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onItemClick(coin) },
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(modifier = Modifier
-                .padding(start = 12.dp, top = 8.dp, bottom = 8.dp)
-                .weight(1f)
+            Column(
+                modifier = Modifier
+                    .padding(start = 12.dp, top = 8.dp, bottom = 8.dp)
+                    .weight(1f)
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -60,9 +66,10 @@ fun CoinListItem(
                         .clip(CircleShape),
                 )
             }
-            Column(modifier = Modifier
-                .padding(start = 12.dp)
-                .weight(1f)
+            Column(
+                modifier = Modifier
+                    .padding(start = 12.dp)
+                    .weight(1f)
             ) {
                 Text(
                     text = coin.book?.uppercase() ?: "",
@@ -77,7 +84,7 @@ fun CoinListItem(
                     .padding(end = 12.dp)
                     .weight(2f),
                 horizontalAlignment = Alignment.End
-            )  {
+            ) {
                 Text(
                     text = "Min: ${coin.minimum_price?.toFloat()?.formatAsCurrency()}",
                     textAlign = TextAlign.End,
