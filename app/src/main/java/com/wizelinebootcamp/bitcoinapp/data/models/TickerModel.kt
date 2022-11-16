@@ -18,7 +18,8 @@ data class PayloadTickerModel(
     @SerializedName("ask") val ask: String? = "",
     @SerializedName("bid") val bid: String? = "",
     @SerializedName("change_24") val change_24: String? = "",
-    @SerializedName("rolling_average_change") val rolling_average_change: AverageChangeModel? = AverageChangeModel(),
+    @SerializedName("rolling_average_change")
+    val rolling_average_change: AverageChangeModel? = AverageChangeModel(),
 )
 
 data class AverageChangeModel(

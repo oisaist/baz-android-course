@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wizelinebootcamp.bitcoinapp.core.NetworkResponse
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadOrderBookModel
 import com.wizelinebootcamp.bitcoinapp.data.models.PayloadTickerModel
 import com.wizelinebootcamp.bitcoinapp.domain.GetOrderBookUseCase
@@ -26,8 +27,8 @@ class CoinDetailViewModel @Inject constructor(
     private val _ticker = MutableLiveData<PayloadTickerModel>()
     val ticker: LiveData<PayloadTickerModel> = _ticker
 
-    private val _orderBook = MutableLiveData<PayloadOrderBookModel>()
-    val orderBook: LiveData<PayloadOrderBookModel> = _orderBook
+    private val _orderBook = MutableLiveData<NetworkResponse<PayloadOrderBookModel>>()
+    val orderBook: LiveData<NetworkResponse<PayloadOrderBookModel>> = _orderBook
 
     private var compositeDisposable: CompositeDisposable? = CompositeDisposable()
 
@@ -53,7 +54,16 @@ class CoinDetailViewModel @Inject constructor(
     }
 
     fun getOrderBook(book: String) = viewModelScope.launch(Dispatchers.IO) {
-        _orderBook.postValue(orderBookUseCase.invoke(book))
+        _orderBook.postValue(NetworkResponse.Loading())
+        try {
+            _orderBook.postValue(NetworkResponse.Success(orderBookUseCase.invoke(book)))
+        } catch (e: Exception) {
+            _orderBook.postValue(
+                NetworkResponse.Error(
+                    e.localizedMessage ?: "An error unexpected occurred"
+                )
+            )
+        }
     }
 
     override fun onCleared() {

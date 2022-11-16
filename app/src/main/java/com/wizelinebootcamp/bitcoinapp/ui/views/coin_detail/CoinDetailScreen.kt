@@ -23,7 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.wizelinebootcamp.bitcoinapp.R
+import com.wizelinebootcamp.bitcoinapp.core.NetworkResponse
+import com.wizelinebootcamp.bitcoinapp.core.common_components.CustomProgressBar
 import com.wizelinebootcamp.bitcoinapp.core.common_components.CustomTopAppBar
+import com.wizelinebootcamp.bitcoinapp.core.common_components.EmptyContent
+import com.wizelinebootcamp.bitcoinapp.core.common_components.ErrorScreen
 import com.wizelinebootcamp.bitcoinapp.ui.viewmodels.CoinDetailViewModel
 import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.BidAskList
 import com.wizelinebootcamp.bitcoinapp.ui.views.coin_detail.components.CoinImage
@@ -92,7 +96,25 @@ fun CoinDetailScreen(
                 )
 
                 CustomSpacer()
-                BidAskList(bidAksModel = orderBook.value?.bids ?: listOf())
+                when (orderBook.value) {
+                    is NetworkResponse.Loading -> CustomProgressBar(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
+                    )
+                    is NetworkResponse.Success -> {
+                        if (orderBook.value?.data?.bids.isNullOrEmpty()) EmptyContent(
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        else BidAskList(
+                            bidAksModel = orderBook.value?.data?.bids ?: listOf()
+                        )
+                    }
+                    else -> ErrorScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        errorText = orderBook.value?.message.toString()
+                    )
+                }
 
                 CustomSpacer()
                 Text(
@@ -104,9 +126,25 @@ fun CoinDetailScreen(
                 )
 
                 CustomSpacer()
-                BidAskList(
-                    bidAksModel = orderBook.value?.asks ?: listOf()
-                )
+                when (orderBook.value) {
+                    is NetworkResponse.Loading -> CustomProgressBar(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
+                    )
+                    is NetworkResponse.Success -> {
+                        if (orderBook.value?.data?.asks.isNullOrEmpty()) EmptyContent(
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        else BidAskList(
+                            bidAksModel = orderBook.value?.data?.asks ?: listOf()
+                        )
+                    }
+                    else -> ErrorScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        errorText = orderBook.value?.message.toString()
+                    )
+                }
             }
         }
     )
