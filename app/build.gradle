@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'org.jlleitschuh.gradle.ktlint' version("11.0.0")
 }
 
 android {
@@ -43,6 +46,19 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        }
+    }
+}
+
+ktlint {
+    android = true
+    reporters {
+        reporter "checkstyle"
+    }
 }
 
 dependencies {
@@ -59,4 +75,49 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Gson
+    implementation "com.google.code.gson:gson:2.9.1"
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    // ViewModel utilities for Compose
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    //OkHttp interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
+    //DaggerHilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //Compose Navigation
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
+    //Hilt Navigation
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
+
+    //Room Database
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt "androidx.room:room-compiler:$roomVersion"
+    //Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$roomVersion")
+    //RxJava2 support for Room
+    implementation("androidx.room:room-rxjava2:$roomVersion")
+
+    //Mock unit test
+    testImplementation "io.mockk:mockk:1.12.4"
+
+    //RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    //RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //RxJava adapter
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
 }
